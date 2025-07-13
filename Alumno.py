@@ -1,30 +1,48 @@
-class Estudiante:  #Clase Cliente
-    def __init__(self, nombre, carnet, carrera, notafinal): #Costructor
+class Estudiante:  #Clase Estudiante
+    def __init__(self, nombre, carnet, carrera, nota_final): #Costructor
         self.__nombre = nombre
         self.__carnet = carnet
         self.__carrera = carrera
-        self.__notaFinal = notafinal
+        self.__nota_final = nota_final
 
-class notas:
-    def __init__(self, nota1, nota2, nota3):
-        self.__nota1 = nota1
-        self.__nota2 = nota2
-        self.__nota3 = nota3
+    def __str__(self):
+        return f"Nombre: {self.nombre}, Carné: {self.carnet}, Carrera: {self.carrera}, Nota Final: {self.nota_final}"
+
+
+class Sistema:
+    def __init__(self):
+        self.estudiantes=[]
+
+    def registrar_estudiante(self):
+        nombre = input("Ingrese Nombre: ")
+        carnet = input("Ingrese carnet: ")
+        carrera = input("Ingrese carrera: ")
+
+        try:
+            nota_final = float(input("Ingrese la nota final: "))
+            return
+        except ValueError:
+            print("Nota no valida ingrese un nota en numeros")
+
+        estudiante = Estudiante(nombre, carnet,carrera, nota_final)
+        self.estudiantes.append(estudiante)
+        print("Estudiante Ingresado")
+
+    def mostrar_estudiante(self):
+        if not self.estudiantes:
+            print("No hay estudiantes ingresados...")
+            return
+        print("LISTADO: ")
+        for estudiante in self.estudiantes:
+            print(estudiante)
+        print()
 
 
  def registrar_estudiante(self):
         nombre = input("Ingrese Nombre: ")
         carnet = input("Ingrese carnet: ")
         carrera = input("Ingrese carrera: ")
-        nota_ = input("Correo: ")
-
- def menu(self):
-            while True:
-                print("\n--- estudiante ---")
-                print("1. Ingrese nombre")
-                print("2. Ingrese de notas")
-                print("3. Ver Notas")
-
+        notafinal = input("Correo: ")
 
 
 
