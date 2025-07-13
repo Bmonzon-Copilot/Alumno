@@ -1,32 +1,81 @@
 class Estudiante:  #Clase Estudiante
-    def __init__(self, nombre, carnet, carrera, nota_final): #Costructor
+    def __init__(self, nombre, carnet, carrera): #Costructor
         self.__nombre = nombre
         self.__carnet = carnet
         self.__carrera = carrera
-        self.__nota_final = nota_final
+        self.__notas = []
+        self.__nota_final = None
 
     def __str__(self):
-        return f"Nombre: {self.nombre}, Carné: {self.carnet}, Carrera: {self.carrera}, Nota Final: {self.nota_final}"
+        resultado = (
+            f"Nombre: {self.__nombre}, Carné: {self.__carnet}, Carrera: {self.__carrera}, "
+        )
 
+        if self.__notas:
+            resultado += f", Notas: {self.__notas}, Nota Final (Promedio): {self.__nota_final:.2f}"
+        else:
+            resultado += ",Notas: ---"
+        return resultado
 
-class Sistema:
+def ingresar_notas():
+    notas = []
+    for i in range(1, 4):
+        try:
+            nota = float(input(f"Ingrese la nota #{i}: "))
+            if nota >= 60 or nota <= 100:
+                print("La nota debe estar entre 60 y 100.")
+                return None
+            notas.append(nota)
+        except ValueError:
+            print("La nota debe ser un número.")
+            return None
+    return notas
+
+class SistemaEstudiante:
     def __init__(self):
         self.estudiantes=[]
+
+    def existe_carnet(self,carnet):
+        return any(est.carnet == carnet for est in self.estudiantes)
+
+    def encuentra_estudiante(self, carnet):
+        for est in self.estudiantes:
+            if est.carnet == carnet:
+                return  est
+        return  None
+
 
     def registrar_estudiante(self):
         nombre = input("Ingrese Nombre: ")
         carnet = input("Ingrese carnet: ")
+
+        if self.existe_carnet(carnet):
+            print("El carnet ya existe...")
+            return
+
         carrera = input("Ingrese carrera: ")
 
-        try:
-            nota_final = float(input("Ingrese la nota final: "))
-            return
-        except ValueError:
-            print("Nota no valida ingrese un nota en numeros")
-
-        estudiante = Estudiante(nombre, carnet,carrera, nota_final)
+        estudiante = Estudiante(nombre,carnet,carrera)
         self.estudiantes.append(estudiante)
-        print("Estudiante Ingresado")
+        print("Estudiante Registrado...")
+
+    def ingreso_notas(self):
+        carnet= input("Ingrese Carnet: ")
+        estudiante= self.encuentra_estudiante(carnet)
+
+        if estudiante is None:
+            print("Estudiante no encontrado...")
+            return
+
+        notas= ingresar_notas()
+        if notas is None:
+            print("Notas no ingresadas correctamente...")
+            return
+
+        estudiante.notas=notas
+        estudiante.nota_final = sum(notas) / len(notas)
+        print("Notas ingresadas correctamente...")
+
 
     def mostrar_estudiante(self):
         if not self.estudiantes:
@@ -37,34 +86,13 @@ class Sistema:
             print(estudiante)
         print()
 
-
- def registrar_estudiante(self):
-        nombre = input("Ingrese Nombre: ")
-        carnet = input("Ingrese carnet: ")
-        carrera = input("Ingrese carrera: ")
-        notafinal = input("Correo: ")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        for propietario in self.propietarios:
-            if propietario.get_dpi() == dpi:
-                print("El cliente ya se encuentra ingresado.")
+    def buscar_estudiante(self):
+        carnet = input("Buscar estudiante (Ingrese Carnet): ")
+        for estudiante in self.estudiantes:
+            if estudiante.carne == carnet:
+                print("Estudiante encontrado:")
+                print(estudiante)
                 return
+        print("Estudiante no registrado\n")
 
-        propietario = Cliente(dpi, nombre, telefono, correo)
-        self.propietarios.append(propietario)
-        print("Cliente Ingresado")
+
