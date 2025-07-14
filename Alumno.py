@@ -88,11 +88,43 @@ class SistemaEstudiante:
 
     def buscar_estudiante(self):
         carnet = input("Buscar estudiante (Ingrese Carnet): ")
-        for estudiante in self.estudiantes:
-            if estudiante.carne == carnet:
-                print("Estudiante encontrado:")
-                print(estudiante)
-                return
-        print("Estudiante no registrado\n")
+        estudiante= self.encuentra_estudiante(carnet)
+        if estudiante:
+            print("Estudiante encontrado:")
+            print(estudiante)
+            return
+        else:
+            print("Estudiante no registrado\n")
+
+def menu():
+        sistema= SistemaEstudiante()
+
+        while True:
+            print("===== Sistema de Estudiantes =====")
+            print("1. Registrar nuevo estudiante")
+            print("2. Ingresar notas y calcular promedio")
+            print("3. Mostrar todos los estudiantes")
+            print("4. Buscar estudiante por carné")
+            print("5. Salir")
+            opcion = input("Seleccione una opción: ")
+
+            if opcion == "1":
+                sistema.registrar_estudiante()
+            elif opcion == "2":
+                sistema.ingresar_notas_a_estudiante()
+            elif opcion == "3":
+                sistema.mostrar_estudiantes()
+            elif opcion == "4":
+                sistema.buscar_estudiante_por_carne()
+            elif opcion == "5":
+                print("¡Hasta luego!")
+                break
+            else:
+                print("Opción inválida. Intente de nuevo.\n")
+
+
+# Ejecutar el menú
+menu()
+
 
 
