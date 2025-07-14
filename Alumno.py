@@ -1,18 +1,18 @@
 class Estudiante:  #Clase Estudiante
     def __init__(self, nombre, carnet, carrera): #Costructor
-        self.__nombre = nombre
-        self.__carnet = carnet
-        self.__carrera = carrera
-        self.__notas = []
-        self.__nota_final = None
+        self.nombre = nombre
+        self.carnet = carnet
+        self.carrera = carrera
+        self.notas = []
+        self.nota_final = None
 
     def __str__(self):
         resultado = (
-            f"Nombre: {self.__nombre}, Carné: {self.__carnet}, Carrera: {self.__carrera}, "
+            f"Nombre: {self.nombre}, Carné: {self.carnet}, Carrera: {self.carrera}, "
         )
 
-        if self.__notas:
-            resultado += f", Notas: {self.__notas}, Nota Final (Promedio): {self.__nota_final:.2f}"
+        if self.notas:
+            resultado += f", Notas: {self.notas}, Nota Final (Promedio): {self.nota_final:.2f}"
         else:
             resultado += ",Notas: ---"
         return resultado
@@ -22,7 +22,7 @@ def ingresar_notas():
     for i in range(1, 4):
         try:
             nota = float(input(f"Ingrese la nota #{i}: "))
-            if nota >= 60 or nota <= 100:
+            if nota < 60 or nota > 100:
                 print("La nota debe estar entre 60 y 100.")
                 return None
             notas.append(nota)
@@ -102,7 +102,7 @@ def menu():
         while True:
             print("===== Sistema de Estudiantes =====")
             print("1. Registrar nuevo estudiante")
-            print("2. Ingresar notas y calcular promedio")
+            print("2. Ingresar notas")
             print("3. Mostrar todos los estudiantes")
             print("4. Buscar estudiante por carné")
             print("5. Salir")
@@ -111,16 +111,16 @@ def menu():
             if opcion == "1":
                 sistema.registrar_estudiante()
             elif opcion == "2":
-                sistema.ingresar_notas_a_estudiante()
+                sistema.ingreso_notas()
             elif opcion == "3":
-                sistema.mostrar_estudiantes()
+                sistema.mostrar_estudiante()
             elif opcion == "4":
-                sistema.buscar_estudiante_por_carne()
+                sistema.buscar_estudiante()
             elif opcion == "5":
                 print("¡Hasta luego!")
                 break
             else:
-                print("Opción inválida. Intente de nuevo.\n")
+                print("Opción inválida\n")
 menu()
 
 
