@@ -121,9 +121,6 @@ def menu():
                 break
             else:
                 print("Opción inválida. Intente de nuevo.\n")
-
-
-# Ejecutar el menú
 menu()
 
 
